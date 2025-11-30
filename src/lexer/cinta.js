@@ -82,6 +82,14 @@ export class Cinta {
         return this.#cabezal;
     }
 
+    /**
+     * Devuelve el contenido completo de la cinta (para debugging)
+     * @return {string} el contenido de la cinta
+     */
+    getContenido() {
+        return this.#celdas;
+    }
+
     // Mueve el cabezal, con la intención de pasar los Carry-returns
     #ignoreCR() {
         while (this.cc() === Cinta.CR) {
