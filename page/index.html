@@ -1,13 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="h-full">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Analex</title>
   </head>
-  <body>
-    <h1 class="text-3xl font-bold">Analex con HTML + TailwindCSS y JavaScript Vanilla</h1>
-    <script src="../js/main.js"></script>
+
+  <body class="h-full bg-slate-800">
+    <div id="miFormulario" class="flex justify-center items-center h-full w-full gap-4">
+      <div class="flex bg-white shadow-xl h-160 w-300 rounded-xl p-5 gap-4 border border-slate-200">
+        <div class="w-220 h-150 rounded-lg font-bold">
+          <textarea
+            name="source-code"
+            id="source-code"
+            class="w-full h-full p-3 border border-slate-300 bg-slate-50 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-600 focus:border-transparent font-mono text-lg"
+            placeholder="Ingresa tu código aquí..."
+          ></textarea>
+        </div>
+        <div
+          class="bg-slate-700 w-70 h-150 rounded-lg text-white font-bold p-5 flex flex-col items-center gap-4"
+        >
+          <button id="init-button"
+            class="w-55 h-10 rounded-lg text-white font-semibold bg-emerald-600 hover:bg-emerald-500 transition-all duration-200 shadow-lg hover:shadow-xl border-2 border-emerald-500 hover:border-emerald-400 active:scale-95"
+          >
+            Init
+          </button>
+          <button id="advance-button"
+            class="w-55 h-10 rounded-lg text-white font-semibold bg-emerald-600 hover:bg-emerald-500 transition-all duration-200 shadow-lg hover:shadow-xl border-2 border-emerald-500 hover:border-emerald-400 active:scale-95"
+          >
+            Avanzar
+          </button>
+
+            <label for="preanalisis" class="flex flex-col items-center gap-2 text-sm font-semibold text-white bg-slate-600 rounded-lg p-3 shadow-md">
+              Preanálisis
+              <input type="text" name="preanalisis" id="preanalisis" class="w-55 h-8 text-slate-800 bg-slate-50 rounded-lg px-3 py-2 text-sm border-2 border-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 text-center font-mono transition-all duration-200" readonly/>
+            </label>
+
+            <label for="lexema" class="flex flex-col items-center gap-2 text-sm font-semibold text-white bg-slate-600 rounded-lg p-3 shadow-md">
+              Lexema
+              <input type="text" name="lexema" id="lexema" class="w-55 h-8 text-slate-800 bg-slate-50 rounded-lg px-3 py-2 text-sm border-2 border-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 text-center font-mono transition-all duration-200" readonly/>
+            </label>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="../src/main.js"></script>
   </body>
 </html>
