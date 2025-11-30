@@ -90,7 +90,7 @@ export class Analex {
                     return;
 
                 case 3: 
-                    this.#R.set(Token.ID, this.#ac);
+                    this.#R.set(Token.ID, -1);
                     return;
 
                 case 4: 
