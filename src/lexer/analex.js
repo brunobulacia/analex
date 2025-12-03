@@ -179,7 +179,6 @@ export class Analex {
           } else {
             this.#pos = this.#M.getPos();
             this.#ac = String.fromCharCode(cc);
-            this.#M.avanzar();
             estado = 999; 
           }
           break;
