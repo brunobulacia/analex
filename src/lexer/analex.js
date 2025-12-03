@@ -119,21 +119,19 @@ export class Analex {
       switch (estado) {
         case 0:
           if (this.#espacio(cc)) {
-            // arista 0
             this.#M.avanzar();
             estado = 0;
           } else if (this.#letra(cc)) {
-            this.#pos = this.#M.getPos(); // arista 1
+            this.#pos = this.#M.getPos();
             this.#ac = String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 1;
           } else if (this.#digito(cc)) {
-            this.#pos = this.#M.getPos(); // arista 2
+            this.#pos = this.#M.getPos();
             this.#ac = String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 2;
           } else if (cc === Cinta.COMILLA) {
-            //arista 5 - COMILLA
             this.#pos = this.#M.getPos();
             this.#ac = String.fromCharCode(cc);
             this.#M.avanzar();
@@ -173,11 +171,16 @@ export class Analex {
             this.#ac = String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 24;
+          } else if (cc === Cinta.DIV) {
+            this.#M.avanzar();
+            estado = 26;
           } else if (cc == Cinta.EOF) {
-            // arista 888
             estado = 888;
           } else {
-            estado = 999; // arista 999
+            this.#pos = this.#M.getPos();
+            this.#ac = String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 999; 
           }
           break;
 
@@ -346,6 +349,52 @@ export class Analex {
         case 25:
           this.#R.set(Token.DOTS, 0);
           return;
+
+        case 26:
+          if (cc === Cinta.DIV) {
+            this.#M.avanzar();
+            estado = 30;
+          } else if (cc === Cinta.POR) {
+            this.#M.avanzar();
+            estado = 28;
+          } else {
+            estado = 27;
+          }
+          break;
+
+        case 27:
+          this.#R.set(Token.DIV, 0);
+          return;
+
+        case 28:
+          if (cc !== Cinta.POR && cc !== Cinta.EOF) {
+            this.#M.avanzar();
+            estado = 28;
+          } else if (cc === Cinta.POR) {
+            this.#M.avanzar();
+            estado = 29;
+          } else {
+            estado = 999;
+          }
+          break;
+
+        case 29:
+          if (cc === Cinta.DIV) {
+            this.#M.avanzar();
+            estado = 0;
+          } else {
+            estado = 28;
+          }
+          break;
+
+        case 30:
+          if (cc !== Cinta.EOLN && cc !== Cinta.EOF) {
+            this.#M.avanzar();
+            estado = 30;
+          } else {
+            estado = 0;
+          }
+        break;
 
         case 888:
           this.#R.set(Token.FIN, 0);

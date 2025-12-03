@@ -12,10 +12,9 @@ export class Cinta {
     static MENOR = 60;
     static MAYOR = 62;
     static DOSPUNTOS = 58;
-    static PUNTO = 46;  
-
-
-
+    static PUNTO = 46;
+    static DIV = 47;
+    static POR = 42;  
 
 
     // Campos principales de la clase (privados)
