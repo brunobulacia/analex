@@ -172,9 +172,12 @@ export class Analex {
             this.#M.avanzar();
             estado = 24;
           } else if (cc === Cinta.DIV) {
+            this.#pos = this.#M.getPos();
+            this.#ac = String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 26;
           } else if (cc == Cinta.EOF) {
+            this.#ac = "";  // Limpiar el lexema para el token FIN
             estado = 888;
           } else {
             this.#pos = this.#M.getPos();
