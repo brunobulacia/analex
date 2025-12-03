@@ -59,6 +59,9 @@ export class Token {
     static BOOLEAN = -3;
     static INTEGER = -2;
     
+
+
+
     // Arrays estáticos para toString
     static #DESCONOCIDO = "??";
     static #OPRELstr = ["IGUAL", "MEN", "MAY", "MEI", "MAI", "DIS"];

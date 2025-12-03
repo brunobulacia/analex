@@ -4,6 +4,19 @@ export class Cinta {
     static LF = 10;    // Line-Feed
     static EOF = 0;
     static EOLN = Cinta.LF;  // Usar EOLN de Linux
+    static COMILLA = 34; 
+
+    // CARACTERES ASCII
+    static ADMIRACION = 33;
+    static IGUAL = 61;
+    static MENOR = 60;
+    static MAYOR = 62;
+    static DOSPUNTOS = 58;
+    static PUNTO = 46;  
+
+
+
+
 
     // Campos principales de la clase (privados)
     #celdas;   // String
