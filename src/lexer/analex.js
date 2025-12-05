@@ -7,6 +7,9 @@ export class Analex {
   #ac; // String
   #pos; // int - Posición de inicio del lexema del preanalisis(), calculado en el dt().
   //       Use Cinta.getPos() o sea pos=M.getPos();
+  #error;
+
+
 
   #tpc() {
     const tpc = [
@@ -86,6 +89,7 @@ export class Analex {
   constructor(codigo) {
     this.#M = new Cinta(codigo);
     this.#R = new Token();
+    this.#error = false; 
     this.init();
   }
 
@@ -106,7 +110,18 @@ export class Analex {
   }
 
   avanzar() {
+    if (this.#error) {
+      return; 
+    }
     this.#dt();
+  }
+
+  setError(value) {
+    this.#error = value;
+  }
+
+  getError() {
+    return this.#error;
   }
 
   #dt() {
@@ -403,6 +418,7 @@ export class Analex {
           return;
 
         case 999:
+          this.#error = true;
           this.#R.set(Token.ERROR, 0);
           return;
       }

@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     advanceButton.addEventListener('click', () => {
-        if (!analex) {
+        if (!analex || analex.getError() == true) {
             return;
         }
         analex.avanzar();
