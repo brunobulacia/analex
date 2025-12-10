@@ -81,6 +81,11 @@ export class Analex {
       }
     }
 
+    if (this.#ac === "proc") {
+      this.#R.set(Token.VOID, 0);
+      return;
+    }
+
     this.#R.set(Token.ID, -1);
   }
 
@@ -189,6 +194,11 @@ export class Analex {
             this.#ac = String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 26;
+          } else if (cc === Cinta.PA) {
+            this.#pos = this.#M.getPos();
+            this.#ac = String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 1800;
           } else if (cc == Cinta.EOF) {
             this.#ac = ""; // Limpiar el lexema para el token FIN
             estado = 888;
@@ -276,6 +286,10 @@ export class Analex {
             this.#ac = this.#ac + String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 13;
+          } else if (cc === Cinta.GUION) {
+            this.#ac = this.#ac + String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 31;
           } else {
             estado = 14;
           }
@@ -404,6 +418,47 @@ export class Analex {
             estado = 30;
           } else {
             estado = 0;
+          }
+          break;
+
+        case 31:
+          this.#R.set(Token.ASSIGN, 0);
+          return;
+
+        case 1800:
+          if (cc === Cinta.POR) {
+          this.#M.avanzar();
+            estado=1900;
+          } else {
+            estado=100;
+          }
+          break;
+
+        case 100:
+          this.#R.set(Token.PA, 0);
+          return;
+
+        case 1900:
+          if (cc === Cinta.POR) {
+            this.#M.avanzar();
+            estado = 2000;
+          } else if (cc !== Cinta.EOF && cc !== Cinta.EOLN) {
+            this.#M.avanzar();
+            estado = 1900;
+          } else {
+            estado = 0; 
+          }
+        break;
+
+        case 2000:
+          if (cc === Cinta.POR) {
+            this.#M.avanzar();
+            estado = 2000;
+          } else if (cc === Cinta.PC) {
+            this.#M.avanzar();
+            estado = 0;
+          } else {
+            estado = 1900;
           }
           break;
 

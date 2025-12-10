@@ -17,7 +17,8 @@ export class Token {
     static TRUE = 14;
     static RETURN = 15;
     static MAIN = 16;
-    
+
+
     static COMA = 17;       // ","
     static PTOCOMA = 18;    // ";"
     static CA = 19;         // "["
@@ -81,8 +82,8 @@ export class Token {
      * Si cc no cumple esta condición, return -1
      */
     static getNomToken(cc) {
-        const lexem = [',', ';', '[', ']', '(', ')', '{', '}', '*', '%', '+', '-'];
-        const nom = [Token.COMA, Token.PTOCOMA, Token.CA, Token.CC, Token.PA, Token.PC, 
+        const lexem = [',', ';', '[', ']', ')', '{', '}', '*', '%', '+', '-'];
+        const nom = [Token.COMA, Token.PTOCOMA, Token.CA, Token.CC, Token.PC, 
                     Token.LA, Token.LC, Token.POR, Token.MOD, Token.MAS, Token.MENOS];
         
         for (let i = 0; i < lexem.length; i++) {

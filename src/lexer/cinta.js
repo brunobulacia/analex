@@ -17,6 +17,9 @@ export class Cinta {
     static POR = 42;  
     static HASH = 35;
     static COMILLA = 39;
+    static GUION = 45;
+    static PA = 40;
+    static PC = 41;
 
     // Campos principales de la clase (privados)
     #celdas;   // String
