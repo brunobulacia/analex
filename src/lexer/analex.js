@@ -189,16 +189,6 @@ export class Analex {
             this.#ac = String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 26;
-          } else if (cc === Cinta.HASH) {
-            this.#pos = this.#M.getPos();
-            this.#ac = String.fromCharCode(cc);
-            this.#M.avanzar();
-            estado = 31;
-          } else if (cc === Cinta.COMILLA) {
-            this.#pos = this.#M.getPos();
-            this.#ac = String.fromCharCode(cc);
-            this.#M.avanzar();
-            estado = 32;
           } else if (cc == Cinta.EOF) {
             this.#ac = ""; // Limpiar el lexema para el token FIN
             estado = 888;
@@ -224,10 +214,6 @@ export class Analex {
             this.#ac = this.#ac + String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 2;
-          } else if (this.#letra(cc)) {
-            this.#ac = this.#ac + String.fromCharCode(cc);
-            this.#M.avanzar();
-            estado = 1;
           } else {
             estado = 4;
           }
@@ -420,72 +406,6 @@ export class Analex {
             estado = 0;
           }
           break;
-
-        case 31:
-          if (cc !== Cinta.EOF && cc !== Cinta.EOLN) {
-            this.#M.avanzar();
-          } else {
-            estado = 0;
-          }
-          break;
-
-        case 32:
-          if (cc === Cinta.COMILLA) {
-            this.#M.avanzar();
-            estado = 33;
-          } else {
-            estado = 999;
-          }
-          break;
-
-        case 33:
-          if (cc === Cinta.COMILLA) {
-            this.#M.avanzar();
-            estado = 34;
-          } else {
-            estado = 999;
-          }
-          break;
-
-        case 34:
-          if (cc !== Cinta.EOF && cc !== Cinta.COMILLA) {
-            this.#M.avanzar();
-          } else if (cc === Cinta.COMILLA) {
-            this.#M.avanzar();
-            estado = 35;
-          } else {
-            estado = 999;
-          }
-          break;
-
-        case 35:
-          if (cc === Cinta.COMILLA) {
-            this.#M.avanzar();
-            estado = 36;
-          } else {
-            estado = 34;
-          }
-          break;
-
-        case 36:
-          if (cc === Cinta.COMILLA) {
-            this.#M.avanzar();
-            estado = 37;
-          } else {
-            estado = 34;
-          }
-          break;
-
-        case 37:
-          if (cc === Cinta.COMILLA) {
-            this.#M.avanzar();
-            estado = 37;
-          }
-          else {
-            estado = 0;
-          }
-        break;
-
 
         case 888:
           this.#R.set(Token.FIN, 0);
