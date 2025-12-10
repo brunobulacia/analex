@@ -122,8 +122,6 @@ export class Analex {
     return this.#error;
   }
 
-
-
   //DEVUELVE TRUE SI TODAS LAS PALABRAS SON DE LONGITUD PAR SI HAY UNA PALABRA DE LONGITUD IMPAR DEVUELVE FALSE
   /* #dt2() {
     let estado = 0;
@@ -195,7 +193,7 @@ export class Analex {
     }
   } */
 
-   #dt() {
+  #dt() {
     let estado = 0;
     let cc;
     this.#ac = "";
@@ -297,6 +295,10 @@ export class Analex {
             this.#ac = this.#ac + String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 2;
+          } else if (cc === Cinta.PUNTO) {
+            this.#ac = this.#ac + String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 38;
           } else {
             estado = 4;
           }
@@ -435,6 +437,10 @@ export class Analex {
             this.#ac = this.#ac + String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 25;
+          } else if (this.#digito(cc)) {
+            this.#ac = this.#ac + String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 40;
           } else {
             estado = 999;
           }
@@ -549,12 +555,42 @@ export class Analex {
           if (cc === Cinta.COMILLA) {
             this.#M.avanzar();
             estado = 37;
-          }
-          else {
+          } else {
             estado = 0;
           }
-        break;
+          break;
 
+
+          case 38:
+            if (this.#digito(cc)) {
+            this.#ac = this.#ac + String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 38;
+          } else {
+            estado = 39;
+          }
+            break;
+
+          case 39:
+          this.#R.set(Token.NUMFOR, this.lexema());
+          return;
+
+
+
+          case 40:
+          if (this.#digito(cc)) {
+            this.#ac = this.#ac + String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 40;
+          } else {
+            estado = 41;
+          }
+          break;
+        
+
+          case 41:
+           this.#R.set(Token.NUMINF, this.lexema());
+          return;
 
         case 888:
           this.#R.set(Token.FIN, 0);
@@ -566,7 +602,7 @@ export class Analex {
           return;
       }
     }
-  } 
+  }
 
   // Métodos auxiliares
   #espacio(cc) {

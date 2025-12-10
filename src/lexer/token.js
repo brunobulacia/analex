@@ -45,7 +45,10 @@ export class Token {
     static STRINGctte = 38;
     static OPREL = 39;
     static TIPO = 40;
-    
+    static NUMINF = 41;
+    static NUMFOR = 42;
+
+
     // Atributos del token OPREL
     static IGUAL = 0;       // "=="
     static MEN = 1;
@@ -72,7 +75,7 @@ export class Token {
         "UNTIL", "FALSE", "TRUE", "RETURN", "MAIN",
         "COMA", "PTOCOMA", "CA", "CC", "PA", "PC", "LA", "LC", "POR", "MOD", "MAS", "MENOS",
         "DIV", "NOT", "AND", "OR", "DOTS", "DOSPUNTOS", "ASSIGN",
-        "NUM", "ID", "STRINGctte", "OPREL", "TIPO"
+        "NUM", "ID", "STRINGctte", "OPREL", "TIPO", "NUMINF", "NUMFOR"
     ];
     
     /**
