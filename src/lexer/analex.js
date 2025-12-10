@@ -122,7 +122,80 @@ export class Analex {
     return this.#error;
   }
 
-  #dt() {
+
+
+  //DEVUELVE TRUE SI TODAS LAS PALABRAS SON DE LONGITUD PAR SI HAY UNA PALABRA DE LONGITUD IMPAR DEVUELVE FALSE
+  /* #dt2() {
+    let estado = 0;
+    let cc;
+    this.#ac = "";
+
+    while (true) {
+      cc = this.#M.cc();
+      switch (estado) {
+        case 0:
+          if (this.#espacio(cc)) {
+            this.#M.avanzar();
+            estado = 0;
+          } else if (cc !== Cinta.EOF && !this.#espacio(cc)) {
+            this.#ac = String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 1;
+          } else {
+            estado = 888;
+          }
+          break;
+
+        case 1:
+          if (cc !== Cinta.EOF && !this.#espacio(cc)) {
+            this.#ac += String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 2;
+          } else {
+            estado = 3;
+          }
+          break;
+
+        case 2:
+          if (this.#espacio(cc)) {
+            this.#ac += String.fromCharCode(cc);
+            this.#M.avanzar();
+          }
+          else if (cc !== Cinta.EOF && !this.#espacio(cc)) {
+            this.#ac += String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 4;
+          } else {
+            estado = 5;
+          }
+          break;
+
+        case 3:
+          this.#R.set(Token.FALSE, 0);
+         return;
+
+        case 4:
+          if (cc !== Cinta.EOF && !this.#espacio(cc)) {
+            this.#ac += String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 2;
+          } else {
+            estado = 3;
+          }
+          break;
+
+        case 5:
+          this.#R.set(Token.TRUE, 0);
+          return;
+
+        case 888:
+          this.#R.set(Token.FIN, 0);
+          return;
+      }
+    }
+  } */
+
+   #dt() {
     let estado = 0;
     let cc;
     this.#ac = "";
@@ -224,10 +297,6 @@ export class Analex {
             this.#ac = this.#ac + String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 2;
-          } else if (this.#letra(cc)) {
-            this.#ac = this.#ac + String.fromCharCode(cc);
-            this.#M.avanzar();
-            estado = 1;
           } else {
             estado = 4;
           }
@@ -497,7 +566,7 @@ export class Analex {
           return;
       }
     }
-  }
+  } 
 
   // Métodos auxiliares
   #espacio(cc) {
