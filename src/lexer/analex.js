@@ -9,8 +9,6 @@ export class Analex {
   //       Use Cinta.getPos() o sea pos=M.getPos();
   #error;
 
-
-
   #tpc() {
     const tpc = [
       Token.VAR,
@@ -89,7 +87,7 @@ export class Analex {
   constructor(codigo) {
     this.#M = new Cinta(codigo);
     this.#R = new Token();
-    this.#error = false; 
+    this.#error = false;
     this.init();
   }
 
@@ -111,7 +109,7 @@ export class Analex {
 
   avanzar() {
     if (this.#error) {
-      return; 
+      return;
     }
     this.#dt();
   }
@@ -146,7 +144,7 @@ export class Analex {
             this.#ac = String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 2;
-          } else if (cc === Cinta.COMILLA) {
+          } else if (cc === Cinta.COMILLAS) {
             this.#pos = this.#M.getPos();
             this.#ac = String.fromCharCode(cc);
             this.#M.avanzar();
@@ -191,13 +189,23 @@ export class Analex {
             this.#ac = String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 26;
+          } else if (cc === Cinta.HASH) {
+            this.#pos = this.#M.getPos();
+            this.#ac = String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 31;
+          } else if (cc === Cinta.COMILLA) {
+            this.#pos = this.#M.getPos();
+            this.#ac = String.fromCharCode(cc);
+            this.#M.avanzar();
+            estado = 32;
           } else if (cc == Cinta.EOF) {
-            this.#ac = "";  // Limpiar el lexema para el token FIN
+            this.#ac = ""; // Limpiar el lexema para el token FIN
             estado = 888;
           } else {
             this.#pos = this.#M.getPos();
             this.#ac = String.fromCharCode(cc);
-            estado = 999; 
+            estado = 999;
           }
           break;
 
@@ -234,11 +242,11 @@ export class Analex {
           return;
 
         case 5:
-          if (cc !== Cinta.EOF && cc !== Cinta.EOLN && cc !== Cinta.COMILLA) {
+          if (cc !== Cinta.EOF && cc !== Cinta.EOLN && cc !== Cinta.COMILLAS) {
             this.#ac = this.#ac + String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 5;
-          } else if (cc === Cinta.COMILLA) {
+          } else if (cc === Cinta.COMILLAS) {
             this.#ac = this.#ac + String.fromCharCode(cc);
             this.#M.avanzar();
             estado = 6;
@@ -411,7 +419,73 @@ export class Analex {
           } else {
             estado = 0;
           }
+          break;
+
+        case 31:
+          if (cc !== Cinta.EOF && cc !== Cinta.EOLN) {
+            this.#M.avanzar();
+          } else {
+            estado = 0;
+          }
+          break;
+
+        case 32:
+          if (cc === Cinta.COMILLA) {
+            this.#M.avanzar();
+            estado = 33;
+          } else {
+            estado = 999;
+          }
+          break;
+
+        case 33:
+          if (cc === Cinta.COMILLA) {
+            this.#M.avanzar();
+            estado = 34;
+          } else {
+            estado = 999;
+          }
+          break;
+
+        case 34:
+          if (cc !== Cinta.EOF && cc !== Cinta.COMILLA) {
+            this.#M.avanzar();
+          } else if (cc === Cinta.COMILLA) {
+            this.#M.avanzar();
+            estado = 35;
+          } else {
+            estado = 999;
+          }
+          break;
+
+        case 35:
+          if (cc === Cinta.COMILLA) {
+            this.#M.avanzar();
+            estado = 36;
+          } else {
+            estado = 34;
+          }
+          break;
+
+        case 36:
+          if (cc === Cinta.COMILLA) {
+            this.#M.avanzar();
+            estado = 37;
+          } else {
+            estado = 34;
+          }
+          break;
+
+        case 37:
+          if (cc === Cinta.COMILLA) {
+            this.#M.avanzar();
+            estado = 37;
+          }
+          else {
+            estado = 0;
+          }
         break;
+
 
         case 888:
           this.#R.set(Token.FIN, 0);
